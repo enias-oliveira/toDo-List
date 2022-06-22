@@ -52,10 +52,14 @@ export const App = () => {
         <div className={styles.tasks}>
           <header>
             <strong className={styles.createdTasksCount}>
-              Tarefas criadas<span>0</span>
+              Tarefas criadas<span>{tasks.length}</span>
             </strong>
             <strong className={styles.completedTasksCount}>
-              Concluídas<span>0</span>
+              Concluídas
+              <span>
+                {tasks.reduce((acc, cur) => (cur.completed ? acc + 1 : acc), 0)}{' '}
+                de {tasks.length}
+              </span>
             </strong>
           </header>
           <main>
