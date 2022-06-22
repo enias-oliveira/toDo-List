@@ -8,7 +8,7 @@ import styles from './App.module.css'
 import { Tasks } from './components/Tasks'
 import './styles/global.css'
 
-export interface Task {
+export interface TaskData {
   id: string
   completed: boolean
   description: string
@@ -19,7 +19,7 @@ export const App = () => {
     {
       id: uuid(),
       completed: false,
-      description: 'Hello there',
+      description: 'Hello there again',
     },
     {
       id: uuid(),
@@ -48,7 +48,7 @@ export const App = () => {
 
         <Tasks
           data={tasks}
-          onCheckTask={(task: Task) => {
+          onCheckTask={(task: TaskData) => {
             setTasks((prevTasks) =>
               prevTasks.map((prevTask) =>
                 prevTask.description === task.description
@@ -60,7 +60,7 @@ export const App = () => {
               ),
             )
           }}
-          onDeleteTask={(task: Task) => {
+          onDeleteTask={(task: TaskData) => {
             setTasks((prevTasks) =>
               prevTasks.filter(
                 (prevTask) => prevTask.description !== task.description,

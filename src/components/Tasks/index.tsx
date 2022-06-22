@@ -1,12 +1,13 @@
-import { Check, Trash } from 'phosphor-react'
-import { Task } from '../../App'
+import { TaskData } from '../../App'
 import ClipboardIcon from '../../assets/clipboard-icon.svg'
+import { Task } from '../Task'
+
 import styles from './styles.module.css'
 
 interface TasksPropTypes {
-  data: Task[]
-  onCheckTask: (task: Task) => void
-  onDeleteTask: (task: Task) => void
+  data: TaskData[]
+  onCheckTask: (task: TaskData) => void
+  onDeleteTask: (task: TaskData) => void
 }
 
 const Tasks = ({ data: tasks, onCheckTask, onDeleteTask }: TasksPropTypes) => (
@@ -31,28 +32,11 @@ const Tasks = ({ data: tasks, onCheckTask, onDeleteTask }: TasksPropTypes) => (
       ) : (
         <ul className={styles.tasksList}>
           {tasks.map((task) => (
-            <li>
-              <label>
-                <input type='checkbox' onChange={() => onCheckTask(task)} />
-                <span
-                  className={
-                    task.completed ? styles.checkboxActive : styles.checkbox
-                  }
-                >
-                  {task.completed && <Check size={10} weight='bold' />}
-                </span>
-                <p
-                  className={
-                    task.completed ? styles.checkedTask : styles.defaultTask
-                  }
-                >
-                  {task.description}
-                </p>
-              </label>
-              <button onClick={() => onDeleteTask(task)}>
-                <Trash size={16} />
-              </button>
-            </li>
+            <Task
+              data={task}
+              onCheckTask={() => onCheckTask(task)}
+              onDeleteTask={() => onDeleteTask(task)}
+            />
           ))}
         </ul>
       )}
