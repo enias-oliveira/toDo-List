@@ -85,7 +85,7 @@
 
 .tasksList {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   gap: 0.75rem;
 }
 
