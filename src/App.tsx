@@ -1,11 +1,12 @@
-import { Check, PlusCircle, Trash } from 'phosphor-react'
+import { Check, Trash } from 'phosphor-react'
 
-import { Header } from './components/Header'
 import ClipboardIcon from './assets/clipboard-icon.svg'
+import { Header } from './components/Header'
 
-import './styles/global.css'
+import { useState } from 'react'
 import styles from './App.module.css'
-import { FormEvent, useState } from 'react'
+import { NewTaskForm } from './components/NewTaskForm'
+import './styles/global.css'
 
 export const App = () => {
   const [tasks, setTasks] = useState([
@@ -20,34 +21,18 @@ export const App = () => {
     },
   ])
 
-  const [newTaskDescription, setNewTaskDescription] = useState('')
-
   return (
     <>
       <Header />
       <div className={styles.wrapper}>
-        <form
-          className={styles.newTaskWrapper}
-          onSubmit={(e: FormEvent) => {
-            e.preventDefault()
+        <NewTaskForm
+          onSubmitNewTask={(newTaskDescription) => {
             setTasks((prevTasks) => [
               ...prevTasks,
               { completed: false, description: newTaskDescription },
             ])
-            setNewTaskDescription('')
           }}
-        >
-          <input
-            type='text'
-            name='new-task'
-            value={newTaskDescription}
-            onChange={(e) => setNewTaskDescription(e.target.value)}
-            placeholder='Adicione uma nova tarefa'
-          />
-          <button type='submit' name='add-new-task'>
-            Criar <PlusCircle />
-          </button>
-        </form>
+        />
 
         <div className={styles.tasks}>
           <header>
