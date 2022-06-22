@@ -102,7 +102,16 @@ export const App = () => {
                         {task.description}
                       </p>
                     </label>
-                    <button>
+                    <button
+                      onClick={() =>
+                        setTasks((prevTasks) =>
+                          prevTasks.filter(
+                            (prevTask) =>
+                              prevTask.description !== task.description,
+                          ),
+                        )
+                      }
+                    >
                       <Trash size={16} />
                     </button>
                   </li>
