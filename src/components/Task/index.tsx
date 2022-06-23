@@ -5,14 +5,14 @@ import styles from './styles.module.css'
 
 interface TaskPropTypes {
   data: TaskData
-  onCheckTask: any
-  onDeleteTask: any
+  onCheckTask: () => void
+  onDeleteTask: () => void
 }
 
 const Task = ({ data: task, onCheckTask, onDeleteTask }: TaskPropTypes) => (
   <li>
     <label>
-      <input type='checkbox' onChange={() => onCheckTask(task)} />
+      <input type='checkbox' onChange={onCheckTask} />
       <span
         className={`${styles.checkboxCircle} ${
           task.completed ? styles.checkboxActive : styles.checkboxDefault
@@ -24,7 +24,7 @@ const Task = ({ data: task, onCheckTask, onDeleteTask }: TaskPropTypes) => (
         {task.description}
       </div>
     </label>
-        <button className={ styles.checkButton } onClick={() => onDeleteTask(task)}>
+    <button className={styles.checkButton} onClick={onDeleteTask}>
       <Trash size={16} />
     </button>
   </li>

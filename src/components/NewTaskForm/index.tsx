@@ -1,5 +1,5 @@
 import { PlusCircle } from 'phosphor-react'
-import { FormEvent, useState } from 'react'
+import { ChangeEventHandler, FormEvent, useState } from 'react'
 import styles from './styles.module.css'
 
 interface NewTaskFormPropTypes {
@@ -9,20 +9,23 @@ interface NewTaskFormPropTypes {
 const NewTaskForm = ({ onSubmitNewTask }: NewTaskFormPropTypes) => {
   const [newTaskDescription, setNewTaskDescription] = useState('')
 
+  const submitHandler = (e: FormEvent) => {
+    e.preventDefault()
+    onSubmitNewTask(newTaskDescription)
+    setNewTaskDescription('')
+  }
+
+  const taskDescriptionChangeHandler: ChangeEventHandler<HTMLInputElement> = (
+    e,
+  ) => setNewTaskDescription(e.target.value)
+
   return (
-    <form
-      className={styles.wrapper}
-      onSubmit={(e: FormEvent) => {
-        e.preventDefault()
-        onSubmitNewTask(newTaskDescription)
-        setNewTaskDescription('')
-      }}
-    >
+    <form className={styles.wrapper} onSubmit={submitHandler}>
       <input
         type='text'
         name='new-task'
         value={newTaskDescription}
-        onChange={(e) => setNewTaskDescription(e.target.value)}
+        onChange={taskDescriptionChangeHandler}
         placeholder='Adicione uma nova tarefa'
       />
       <button type='submit' name='add-new-task'>
